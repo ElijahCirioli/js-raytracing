@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Elijah Cirioli</title>
+        
+    <link href="/page-style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/header-style.css" rel="stylesheet" type="text/css" media="all">
+    <link href="./style.css" rel="stylesheet" type="text/css" media="all">
+    
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script src="html5kellycolorpicker.min.js"></script>
+    
+    <script src="/splash.js"></script>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+  <body onload="setupControls()">
+    <div id="page-wrap">
+      <div id="header-wrap">
+        <div class="header-title">RAYTRACING</div>
+        <a class="header-logo" href="https://elijahcirioli.com"></a>
+      </div>
+      <div id=nav-spacer></div>
+      <div id=nav-wrap class="nav-absolute">
+        <nav>
+          <ul class=navlist>
+            <li class=navitem><a class=navlink href="https://elijahcirioli.com">PORTFOLIO</a></li>
+            <li class=navitem><a class=navlink href="https://elijahcirioli.com/about/">ABOUT</a></li>
+            <li class=navitem><a class=navlink href="https://elijahcirioli.com/contact/">CONTACT</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div id ="rt-wrap">
+        <div id="canvasHolder">
+          <canvas id="myCanvas" width="600" height="600"></canvas>
+          <script src="./Vec.js"></script>
+          <script src="./Sphere.js"></script>
+          <script src="./Cube.js"></script>
+          <script src="./Plane.js"></script>
+          <script src="./Camera.js"></script>
+          <script src="./Ray.js"></script>
+          <script src="./raytracing.js"></script>
+          <script src="./controls.js"></script>
+          <div id="loading">
+            <p id="loading-text">Rendering</p>
+            <div class="gooey">
+              <span class="dot"></span>
+              <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="control-wrap">
+          <button class="button" id="render-button">RENDER</button>
+          <p id="obj-control-text">Object settings</p>
+          <p id="gen-control-text">General settings</p>
+          <div id="object-buttons">
+            <p id="obj-text">Selected object</p>
+            <button class="button obj-button" id="b0">Sphere 1</button>
+            <button class="button obj-button" id="b1">Sphere 2</button>
+            <button class="button obj-button" id="b2">Sphere 3</button>
+            <button class="button obj-button" id="b3">Sphere 4</button>
+            <button class="button obj-button" id="b4">Cube 1</button>
+            <button class="button obj-button" id="b5">Cube 2</button>
+            <button class="button obj-button" id="b6">Ground</button>
+            <button class="button obj-button" id="b7">Skybox</button>
+          </div>
+          <button class="checkbox" id="light-button"></button>
+          <button class="checkbox" id="ref-button"></button>
+          <p id="light-button-label">Light source</p>
+          <p id="ref-button-label">Reflective</p>
+          <input type="range" min="-500" max="1100" value="300" class="slider" id="x-slider"><p id="x-label">X</p>
+          <input type="range" min="-500" max="1100" value="300" class="slider" id="y-slider"><p id="y-label">Y</p>
+          <input type="range" min="100" max="1700" value="500" class="slider" id="z-slider"><p id="z-label">Z</p>
+          <input type="range" min="10" max="500" value="100" class="slider" id="rad-slider"><p class="slider-label" id="rad-label">Radius</p>
+          <canvas id="color-canvas" width="140" height="140"></canvas><input id="color" value="#54aedb">
+          <div id="color-blocker"></div>
+          
+          <input type="range" min="100" max="800" value="450" class="slider" id="focal-slider"><p class="slider-label" id="focal-label">Focal length</p>
+          <input type="range" min="41" max="143" value="65" class="slider" id="fov-slider"><p class="slider-label" id="fov-label">FOV: </p>
+          <input type="range" min="0" max="1000000" value="400000" class="slider" id="light-slider"><p class="slider-label" id="light-label">Light intensity</p>
+          
+          <input type="range" min="0" max="100" value="80" class="slider" id="shadow-slider"><p class="slider-label" id="shadow-label">Max shadow</p>
+          <input type="range" min="0" max="100" value="65" class="slider" id="highlight-slider"><p class="slider-label" id="highlight-label">Max highlight</p>
+          <input type="range" min="0" max="500" value="100" class="slider" id="floor-slider"><p class="slider-label" id="floor-label">Shadow floor</p>
+          
+          <input type="range" min="0" max="200" value="100" class="slider" id="ref-slider"><p class="slider-label" id="ref-label">Reflectivity</p>
+          <input type="range" min="0" max="6" value="3" class="slider" id="bounce-slider"><p class="slider-label" id="bounce-label">Max light bounces: 3</p>
+          <input type="range" min="0" max="100" value="0" class="slider" id="gamma-slider"><p class="slider-label" id="gamma-label">Gamma</p>
+          
+          <canvas id="preview-canvas" width="120" height="120"></canvas>
+          <div id="camera-image"></div>
+          
+          <button class="button" id="preset1-button">Preset 1</button>
+          <button class="button" id="preset2-button">Preset 2</button>
+        </div>
+      </div>
+      <footer>
+        <p>©2019 Elijah Cirioli &nbsp;&nbsp;&nbsp; <a class=footer-link href="https://elijahcirioli.com">Portfolio</a> &nbsp;&nbsp;&nbsp; <a class=footer-link href="https://elijahcirioli.com/about/">About</a> &nbsp;&nbsp;&nbsp; <a class=footer-link href="https://elijahcirioli.com/contact/">Contact</a></p> 
+      </footer>
+    </div>
+  </body>
+</html>
